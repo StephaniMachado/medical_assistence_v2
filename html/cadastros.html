@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seleção de Cadastro</title>
+  <link rel="stylesheet" href="/css/cadastro_paciente.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div id="alerta" class="alerta oculto"></div>
+
+  <div class="sidebar">
+    <div class="menu-icon">&#9776;</div>
+    <ul>
+      <li><a href="#">Agendamentos</a></li>
+      <li><a href="#">Cadastros</a></li>
+      <li><a href="#">Registro de Agendamentos</a></li>
+      <li><a href="#">Histórico de Pacientes</a></li>
+      <li><a href="#">Exames</a></li>
+      <li><a href="#">Disponibilidade de Horários</a></li>
+    </ul>
+    <i class="fas fa-user"></i> Administrador<br />
+    <i class="fas fa-sign-out-alt"></i> Logout<br />
+  </div>
+
+  <div class="container">
+    <h1>
+      <img src="../IMG/Design_Medical_Assistance02.png" alt="Logo" />
+    </h1>
+
+    <div class="form">
+      <h2>Selecione o Tipo de Cadastro</h2>
+
+      <form id="formSelecao" onsubmit="return false;">
+        <label for="tipoCadastro">Tipo de Cadastro:</label>
+        <select id="tipoCadastro" name="tipoCadastro" required>
+          <option value="" disabled selected>Selecione...</option>
+          <option value="paciente">Cadastro de Pacientes</option>
+          <option value="profissional">Cadastro de Profissionais</option>
+          <option value="estagiario">Cadastro de Estagiários</option>
+        </select>
+
+        <button type="submit">Ir para Cadastro</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('formSelecao');
+    form.addEventListener('submit', () => {
+      const tipo = document.getElementById('tipoCadastro').value;
+
+      if (!tipo) {
+        alert('Por favor, selecione um tipo de cadastro.');
+        return;
+      }
+
+      // Redireciona para a página correspondente
+      if (tipo === 'paciente') {
+        window.location.href = 'cadastro_paciente.html';
+      } else if (tipo === 'profissional') {
+        window.location.href ='cadastro_funcionarios.html';
+      } else if (tipo === 'estagiario') {
+        window.location.href = 'cadastro_estagiario.html';
+      }
+    });
+  </script>
+  
+</body>
+</html>
