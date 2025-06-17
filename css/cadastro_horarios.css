@@ -1,0 +1,65 @@
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  vertical-align: top;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+td label {
+  display: inline-block;
+  margin: 4px 6px;
+  font-size: 13px;
+}
+
+td input[type="checkbox"] {
+  margin-right: 4px;
+  transform: scale(1.1);
+}
+
+select, button {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+#salvarBtn {
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#salvarBtn:hover {
+  background-color: #a30000;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  td label {
+    display: block;
+  }
+}

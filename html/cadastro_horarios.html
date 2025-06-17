@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Horários</title>
+  <link rel="stylesheet" href="/css/cadastros.css">
+  <link rel="stylesheet" href="/css/cadastro_horarios.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="menu-icon">&#9776;</div>
+    <ul>
+      <li><a href="#">Agendamentos</a></li>
+      <li><a href="#">Cadastros</a></li>
+      <li><a href="#">Registro de Agendamentos</a></li>
+      <li><a href="#">Histórico de Pacientes</a></li>
+      <li><a href="#">Exames</a></li>
+      <li><a href="#">Disponibilidade de Horários</a></li>
+    </ul>
+    <i class="fas fa-user"></i> Administrador<br />
+    <i class="fas fa-sign-out-alt"></i> Logout<br />
+  </div>
+
+  <div class="container">
+    <h1>Cadastro de Horários por Profissional</h1>
+
+    <label for="profissional">Profissional:</label>
+    <select id="profissional">
+      <option value="">Selecione...</option>
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dia da Semana</th>
+          <th>Horários Disponíveis</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-horarios">
+        <!-- preenchido via JS -->
+      </tbody>
+    </table>
+
+    <button id="salvarBtn">Salvar Disponibilidade</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="/js/cadastro_horarios.js"></script>
+</body>
+</html>
