@@ -1,4 +1,4 @@
-// Conexão com Supabase
+//  Conexão com Supabase
 const { createClient } = supabase;
 const supabaseClient = createClient(
   'https://jtazctpzzbfszxttiolz.supabase.co',
@@ -9,45 +9,55 @@ const profissionalSelect = document.getElementById('profissional');
 const salvarBtn = document.getElementById('salvarBtn');
 const tabelaHorarios = document.getElementById('tabela-horarios');
 
-const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
-
 function gerarHorarios() {
   const horarios = [];
-
-  function addIntervalos(inicio, fim) {
-    let [h, m] = inicio.split(':').map(Number);
-    const [endH, endM] = fim.split(':').map(Number);
-
-    while (h < endH || (h === endH && m < endM)) {
-      horarios.push(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`);
-      m += 15;
-      if (m === 60) {
-        h += 1;
-        m = 0;
-      }
-    }
+  let h = 9, m = 0;
+  while (h < 13 || (h === 13 && m === 0)) {
+    horarios.push(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`);
+    m += 15;
+    if (m === 60) { h++; m = 0; }
   }
-
-  addIntervalos('09:00', '13:00');
-  addIntervalos('14:00', '17:00');
-
+  h = 14; m = 0;
+  while (h < 17 || (h === 17 && m === 0)) {
+    horarios.push(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`);
+    m += 15;
+    if (m === 60) { h++; m = 0; }
+  }
   return horarios;
+}
+
+function getProximosDiasUteis(qtd = 5) {
+  const dias = [];
+  const hoje = new Date();
+  while (dias.length < qtd) {
+    const diaSemana = hoje.getDay();
+    if (diaSemana >= 1 && diaSemana <= 5) {
+      dias.push({
+        label: hoje.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }),
+        iso: hoje.toISOString().split('T')[0]
+      });
+    }
+    hoje.setDate(hoje.getDate() + 1);
+  }
+  return dias;
 }
 
 function montarTabela() {
   const horarios = gerarHorarios();
-  diasSemana.forEach(dia => {
+  const dias = getProximosDiasUteis();
+
+  dias.forEach(dia => {
     const row = document.createElement('tr');
     const cellDia = document.createElement('td');
-    cellDia.textContent = dia;
+    cellDia.textContent = dia.label;
     row.appendChild(cellDia);
 
     const cellHorarios = document.createElement('td');
     horarios.forEach(h => {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
-      checkbox.name = `${dia}_${h}`;
-      checkbox.dataset.dia = dia;
+      checkbox.name = `${dia.iso}_${h}`;
+      checkbox.dataset.data = dia.iso;
       checkbox.dataset.horario = h;
 
       const label = document.createElement('label');
@@ -82,7 +92,7 @@ salvarBtn.addEventListener('click', async () => {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
   const registros = Array.from(checkboxes).map(cb => ({
     profissional_id,
-    dia: cb.dataset.dia,
+    data: cb.dataset.data,
     horario: cb.dataset.horario,
     status: 'disponivel'
   }));
